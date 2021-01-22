@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+    <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="lib/slick/slick.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="socket.io.js"></script>
+    <style>
+        .myClass {
+            display: block !important;
+            list-style: none;
+            padding: 10px;
+            font-size: 18px;
+            /* padding: 10px; */
+            transform: rotate(180deg);
+
+
+        }
+
+        .haha {
+            font-size: 15px;
+            padding-left: 10px;
+            transform: rotate(180deg);
+        }
+
+        .userProfile {
+            margin-top: 15%;
+        }
+
+        .userProfilePic {
+            margin-top: 70%;
+            /* margin-bottom: 8%; */
+        }
+
+        .img {
+            /* vertical-align: middle; */
+            width: 170px;
+            border-radius: 50%;
+            display: block;
+            margin: 8px auto;
+        }
+
+
+
+        .opacityFile {
+            display: none;
+        }
+
+
+
+        .imageUpdate {
+            position: relative;
+            width: 100%;
+        }
+
+        .img {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .imageUpdate:hover .img {
+            opacity: 0.3;
+        }
+
+        .imageUpdate:hover .middle {
+            opacity: 1;
+        }
+
+        .text {
+            background-color: #E44D3A;
+            color: white;
+            font-size: 10px;
+            padding: 5px 5px;
+        }
+
+        .avatar {
+            vertical-align: middle;
+            width: 30px;
+            /* height: 50px; */
+            border-radius: 50%;
+            margin-right: 3%;
+            font-size: 10px;
+        }
+    </style>
+
+</head>
+
+<!-- <body  onload="getTweets()"> -->
+
+<!-- <body onload="getTweets()"> -->
+
+<body onload="getProfile()">
+
+    <div class="wrapper">
+        <header>
+            <div class="container">
+                <div class="header-data">
+                    <div class="logo">
+                        <a href="dashboard.html" title=""><img src="images/logo.png" alt=""></a>
+                    </div>
+                    <div class="search-bar">
+                        <form>
+                            <input type="text" name="search" placeholder="Search...">
+                            <button type="submit"><i class="la la-search"></i></button>
+                        </form>
+                    </div>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="dashboard.html" title="">
+                                    <span><img src="images/icon1.png" alt=""></span>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <!-- <button onclick="logout()">
+                                    Logout
+                                </button> -->
+                                <a onclick="logout()" href="#" title="">
+                                    <span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+
+                    </nav>
+                    <div class="menu-btn">
+                        <!-- <a href="#" title=""><i class="fa fa-bars"></i></a> -->
+                        <a onclick="logout()" href="#" title="">
+                            <span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                            Logout
+                        </a>
+                    </div>
+                    <!-- <div class="user-account">
+                        <div class="user-info">
+                            <img src="images/user.png" alt="">
+                            <a href="#" title="">John</a>
+                            <i class="la la-sort-down"></i>
+                        </div>
+                      
+                    </div> -->
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="main-section">
+                <div class="container">
+                    <div class="main-section-data">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+                                <div class="main-left-sidebar no-margin">
+                                    <div class="user-data full-width">
+                                        <div class="user-profile">
+                                            <div class="username-dt">
+                                                <div class="usr-pic">
+
+                                                    <!-- <img id="dbImage" src="images/profilePic.PNG" alt=""> -->
+                                                    <!-- <img id="dbImage" src="images/randomPic.png" alt=""> -->
+                                                    <label class="filebutton">
+                                                        <div class="imageUpdate">
+                                                            <img class="img " id="dbImage" src="./images/randomPic.png"
+                                                                alt="John" id="profilePic">
+                                                            <div class="middle">
+                                                                <div class="text">Update Profile Photo</div>
+                                                            </div>
+
+                                                        </div>
+                                                        <span><input class="opacityFile" type="file" id="fileInput"
+                                                                name="myfile" onchange="upload(); previewFile()">
+                                                        </span>
+                                                    </label>
+
+
+
+                                                </div>
+                                            </div>
+
+
+                                            <!-- <div class="userProfile">
+                                                <form class="userProfilePic" onsubmit="return upload()">
+
+                                                    <input required type="file" style=" margin-top: 15%;" id="fileInput"
+                                                        onchange="previewFile()">
+                                                    <button type="submit" id="uploadBtn"> Upload </button>
+                                                </form>
+                                            </div> -->
+
+                                            <div class="user-specs">
+                                                <h3 id="resUserName"></h3>
+                                                <span>Web Developer</span>
+                                            </div>
+                                        </div>
+                                        <ul class="user-fw-status">
+                                            <!-- <li>
+                                                <h4>Following</h4>
+                                                <span>34</span>
+                                            </li>
+                                            <li>
+                                                <h4>Followers</h4>
+                                                <span>155</span>
+                                            </li> -->
+                                            <li>
+                                                <a onclick="userTweets()" href="#" title="">My
+                                                    Profile</a>
+                                            </li>
+                                            <li>
+                                                <a onclick="getTweets()" href="#" title="">
+                                                    Home</a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-8 no-pd">
+                                <div class="main-ws-sec">
+                                    <div class="post-topbar">
+                                        <div class="user-picy">
+                                            <!-- <img src="images/user-pic.png" alt=""> -->
+                                            <img id="dbImageOne" style="border-radius: 50%;" src="images/randomPic.png"
+                                                alt="">
+                                            <!-- <img id="dbImageOne" style="border-radius: 50%;"
+                                                src="images/smallprofile.PNG" alt=""> -->
+                                        </div>
+                                        <div class="post-st " style="margin-right: 40px; ">
+                                            <div class="input-group input-group-lg">
+                                                <!-- <form onsubmit="return post()"> -->
+                                                <input id="userPost" type="text" class="form-control"
+                                                    placeholder="What's happening" aria-label="Sizing example input"
+                                                    aria-describedby="inputGroup-sizing-lg"
+                                                    style="margin-right: 30px; ">
+                                                <!-- <button type="button" style=" border: 1 px solid #E44D3A;" class="btn btn-outline-dark">Tweet</button> -->
+                                                <button id="postBtn" class="btn btn-primary"
+                                                    style="background-color: #E44D3A; border:  2px solid #E44D3A;"
+                                                    onclick="tweetme()">Tweet</button>
+                                                <!-- </form> -->
+                                            </div>
+
+                                            <!-- <div class="posts__contxainer" style="display: block !important;"> -->
+                                            <div style="display: block !important;">
+                                                <ul class="haha" id="posts">
+
+                                                </ul>
+                                                <div style="display: block !important; " id="myPost">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="post-st">
+                                            <ul>
+                                                <li><a class="post_project" href="#" title="">Post a Project</a></li>
+                                                <li><a class="post-jb active" href="#" title="">Post a Job</a></li>
+                                            </ul>
+                                        </div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tags-sec full-width">
+                                <ul>
+                                    <li><a href="#" title="">Help Center</a></li>
+                                    <li><a href="#" title="">About</a></li>
+                                    <li><a href="#" title="">Privacy Policy</a></li>
+                                    <li><a href="#" title="">Community Guidelines</a></li>
+                                    <li><a href="#" title="">Cookies Policy</a></li>
+                                    <li><a href="#" title="">Career</a></li>
+                                    <li><a href="#" title="">Language</a></li>
+                                    <li><a href="#" title="">Copyright Policy</a></li>
+                                </ul>
+                                <div class="cp-sec">
+                                    <!-- <img src="images/logo2.png" alt=""> -->
+                                    <p><img src="images/cp.png" alt="">Copyright 2021</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</body>
+<script src="app.js"></script>
+
+<script>
+    // console.log('on loaded')
+    var user = localStorage.getItem('current_user')
+    var newUserEmail = JSON.parse(user).email;
+
+    // console.log(user)
+    document.getElementById('resUserName').innerHTML = JSON.parse(user).name
+
+    // const url = "https://own-project.herokuapp.com";
+    // const url = "http://localhost:5000";
+
+
+    // function upload() {
+
+    //     var fileInput = document.getElementById("fileInput");
+    //     // console.log("fileInput: ", fileInput);
+    //     // console.log("fileInput: ", fileInput.files[0]);
+
+    //     let formData = new FormData();
+
+    //     formData.append("myFile", fileInput.files[0]);
+    //     formData.append("myName", "Khan");
+    //     formData.append("myDetails",
+    //         JSON.stringify({
+    //             // "email": localStorage.getItem("current_user"),   // this is how you send a json object along with file, you need to stringify (ofcourse you need to parse it back to JSON on server) your json Object since append method only allows either USVString or Blob(File is subclass of blob so File is also allowed)
+    //             "email": newUserEmail,   // this is how you send a json object along with file, you need to stringify (ofcourse you need to parse it back to JSON on server) your json Object since append method only allows either USVString or Blob(File is subclass of blob so File is also allowed)
+    //             "year": "2021"
+    //         })
+    //     );
+
+    //     axios({
+    //         method: 'post',
+    //         url: "http://localhost:5000/upload",
+    //         // url: "https://own-project.herokuapp.com/upload",
+    //         // url: url + "/upload",
+    //         data: formData,
+    //         headers: { 'Content-Type': 'multipart/form-data' }
+    //     })
+    //         .then(res => {
+    //             // console.log(`upload Success` + res.data);
+
+
+    //             // console.log("upload success", res.data);
+    //             // console.log("message", res.data.message);
+    //             // console.log("photo url", res.data.url);
+    //             // document.getElementById("dbImage").innerHTML = res.data.url;
+    //             // document.getElementById("imgProfile").innerHTML = res.data.url;
+    //             // console.log(JSON.parse(res.data.url));
+    //             // document.getElementById("imgProfile").innerHTML = JSON.parse(res.data.url);
+    //             // console.log(JSON.stringify(res.data.url));
+
+    //             // document.getElementById("imageid").src="../template/save.png"
+    //             // document.getElementById("imgProfile").src = (res.data.url)
+    //             // document.getElementById("dbImage").src = JSON.stringify(res.data.url)
+
+    //             // var img = document.createElement("img");
+    //             // img.setAttribute("src", res.data.url);
+    //             // img.setAttribute("width", "100");
+    //             // // img.setAttribute("height", "100");
+    //             // img.setAttribute("alt", "user image");
+    //             // document.getElementById("imgProfile").appendChild(img);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+
+    //     return false;
+
+    // }
+
+</script>
+
+</html>
