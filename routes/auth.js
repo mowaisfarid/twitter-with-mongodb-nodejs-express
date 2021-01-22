@@ -26,10 +26,10 @@ router.post("/signup", (req, res, next) => {
             please send name, email and passwod  in json body.
             e.g:
             {
-                "name": "khan",
-                "email": "khan@gmail.com",
-                "phone": "123456789",
-                "password": "abc",
+                "name": "abc",
+                "email": "abc@mail.com",
+                "phone": "0123456789",
+                "password": "*********",
             }`)
         return;
     }
@@ -86,7 +86,7 @@ router.post("/login", (req, res, next) => {
             please send email and password in json body.
             e.g:
             {
-                "email": khan@gamil.com,
+                "email": abc@mail.com,
                 "password": abc
             }
         `)
@@ -155,7 +155,7 @@ router.post("/forgot-password", (req, res, next) => {
         please send email in json data
         e.g:
         {
-            "email": khan@gamil.com
+            "email": abc@gamil.com
         }
         `)
         return;
@@ -178,7 +178,7 @@ router.post("/forgot-password", (req, res, next) => {
 
                     client.sendEmail({
                         // "From": "info@khan.com",
-                        "From": "mudassir_student@sysborg.com",
+                        "From": "owaisfareed_student@sysborg.com",
                         "To": req.body.email,
                         "Subject": "Rest your password",
                         "TextBody": `Here is your password rest ${opt}`
@@ -220,7 +220,7 @@ router.post("/forgot-password-step-2", (req, res, next) => {
             please send email & otp in json body.
             e.g:
             {
-                "email": "malikasinger@gmail.com",
+                "email": "abcr@mail.com",
                 "newPassword": "xxxxxx",
                 "otp": "xxxxx" 
             }`)
