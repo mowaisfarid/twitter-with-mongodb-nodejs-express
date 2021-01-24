@@ -1,6 +1,7 @@
 
 // const url = "https://own-project.herokuapp.com";
-const url = "http://localhost:5000";
+const url = "https://owais-twitter.herokuapp.com";
+// const url = "http://localhost:5000";
 
 // var url = "http://localhost:5000";
 var socket = io(url);
@@ -303,31 +304,31 @@ function passForgot() {
 
 
 
-function newPassword() {
+// function newPassword() {
 
-    // console.log("hdjfahfj")
+//     console.log("Testing")
 
 
-    const Http = new XMLHttpRequest();
-    Http.open("POST", url + "/auth/forgot-password-step-2")
-    Http.setRequestHeader("Content-Type", "application/json");
-    Http.send(JSON.stringify({
-        email: document.getElementById("email").value.toLowerCase(),
-        newPassword: document.getElementById("newPassword").value,
-        otp: document.getElementById("otp").value,
-    }))
-    Http.onreadystatechange = (e) => {
-        // console.log(Http.readyState);
+//     const Http = new XMLHttpRequest();
+//     Http.open("POST", url + "/auth/forgot-password-step-2")
+//     Http.setRequestHeader("Content-Type", "application/json");
+//     Http.send(JSON.stringify({
+//         email: document.getElementById("email").value.toLowerCase(),
+//         newPassword: document.getElementById("newPassword").value,
+//         otp: document.getElementById("otp").value,
+//     }))
+//     Http.onreadystatechange = (e) => {
+//         // console.log(Http.readyState);
 
-        if (Http.readyState === 4) {
-            alert(Http.responseText);
-        }
+//         if (Http.readyState === 4) {
+//             alert(Http.responseText);
+//         }
 
-    }
+//     }
 
-    return false;
+//     // return false;
 
-}
+// }
 
 function logout() {
     // let logout = () => {
