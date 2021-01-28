@@ -186,8 +186,9 @@
                                             <div class="username-dt">
                                                 <div class="usr-pic">
 
-                                                    <!-- <img id="dbImage" src="images/profilePic.PNG" alt=""> -->
+                                                     <!-- <img id="dbImage" src="images/profilePic.PNG" alt=""> -->
                                                     <!-- <img id="dbImage" src="images/randomPic.png" alt=""> -->
+                                                    
                                                     <label class="filebutton">
                                                         <div class="imageUpdate">
                                                             <img class="img " id="dbImage" src="./images/randomPic.png"
@@ -206,7 +207,7 @@
 
                                                 </div>
                                             </div>
-
+     
 
                                             <!-- <div class="userProfile">
                                                 <form class="userProfilePic" onsubmit="return upload()">
@@ -320,71 +321,50 @@
     // console.log('on loaded')
     var user = localStorage.getItem('current_user')
     var newUserEmail = JSON.parse(user).email;
-
+    // console.log(user,newUserEmail)
     // console.log(user)
     document.getElementById('resUserName').innerHTML = JSON.parse(user).name
 
-    // const url = "https://own-project.herokuapp.com";
-    // const url = "http://localhost:5000";
+
+    function upload() {
+
+        var fileInput = document.getElementById("fileInput");
+        console.log("fileInput: ", fileInput);
+        console.log("fileInput: ", fileInput.files[0]);
+
+        let formData = new FormData();
+
+        formData.append("myFile", fileInput.files[0]);
+        formData.append("myDetails",
+            JSON.stringify({
+                "email": newUserEmail,
+                "year": "2021"
+            })
+        );
+
+        axios({
+            method: 'post',
+            // url: "http://localhost:5000/upload",
+            url: "https://owais-twitter.herokuapp.com/upload",
+            // url: url + "/upload",
+            data: formData,
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+            .then(res => {
+                console.log(`upload Success` + res);
 
 
-    // function upload() {
+                // console.log("upload success", res.data);
+                // console.log("message", res.data.message);
+              
+            })
+            .catch(err => {
+                console.log(err);
+            })
 
-    //     var fileInput = document.getElementById("fileInput");
-    //     // console.log("fileInput: ", fileInput);
-    //     // console.log("fileInput: ", fileInput.files[0]);
+        return false;
 
-    //     let formData = new FormData();
-
-    //     formData.append("myFile", fileInput.files[0]);
-    //     formData.append("myName", "Khan");
-    //     formData.append("myDetails",
-    //         JSON.stringify({
-    //             // "email": localStorage.getItem("current_user"),   // this is how you send a json object along with file, you need to stringify (ofcourse you need to parse it back to JSON on server) your json Object since append method only allows either USVString or Blob(File is subclass of blob so File is also allowed)
-    //             "email": newUserEmail,   // this is how you send a json object along with file, you need to stringify (ofcourse you need to parse it back to JSON on server) your json Object since append method only allows either USVString or Blob(File is subclass of blob so File is also allowed)
-    //             "year": "2021"
-    //         })
-    //     );
-
-    //     axios({
-    //         method: 'post',
-    //         url: "http://localhost:5000/upload",
-    //         // url: "https://own-project.herokuapp.com/upload",
-    //         // url: url + "/upload",
-    //         data: formData,
-    //         headers: { 'Content-Type': 'multipart/form-data' }
-    //     })
-    //         .then(res => {
-    //             // console.log(`upload Success` + res.data);
-
-
-    //             // console.log("upload success", res.data);
-    //             // console.log("message", res.data.message);
-    //             // console.log("photo url", res.data.url);
-    //             // document.getElementById("dbImage").innerHTML = res.data.url;
-    //             // document.getElementById("imgProfile").innerHTML = res.data.url;
-    //             // console.log(JSON.parse(res.data.url));
-    //             // document.getElementById("imgProfile").innerHTML = JSON.parse(res.data.url);
-    //             // console.log(JSON.stringify(res.data.url));
-
-    //             // document.getElementById("imageid").src="../template/save.png"
-    //             // document.getElementById("imgProfile").src = (res.data.url)
-    //             // document.getElementById("dbImage").src = JSON.stringify(res.data.url)
-
-    //             // var img = document.createElement("img");
-    //             // img.setAttribute("src", res.data.url);
-    //             // img.setAttribute("width", "100");
-    //             // // img.setAttribute("height", "100");
-    //             // img.setAttribute("alt", "user image");
-    //             // document.getElementById("imgProfile").appendChild(img);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-
-    //     return false;
-
-    // }
+    }
 
 </script>
 

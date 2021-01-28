@@ -1,11 +1,12 @@
 
 
-var { DBURI } = require("../core/index")
+// var { DBURI } = require("../core/index")
 
 
 var mongoose = require('mongoose')
 
-let dbURI = DBURI;
+// let dbURI = DBURI;
+let dbURI = "mongodb+srv://owais:owais@cluster0.auftw.mongodb.net/tweeter-db?retryWrites=true&w=majority";
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -38,7 +39,7 @@ var userSchema = new mongoose.Schema({
     "email": String,
     "phone": String,
     "password": String,
-    // "profileUrl": String,
+    "profileUrl": String,
     "createdOn": { "type": Date, "default": Date.now },
     "activeSince": Date
 });
@@ -58,20 +59,13 @@ var tweetsSchema = new mongoose.Schema({
     "email": String,
     "userPost": String,
     "name": String,
-    // "profileUrl": String,
+    "profileUrl": String,
     "createdOn": { "type": Date, "default": Date.now },
 })
 
 var tweetsModel = mongoose.model("tweets", tweetsSchema);
 
-// var tweetsSchema = new mongoose.Schema({
-//     "email" : String,
-//     "tweetText" : String,
-//     "name" : String,
-//     // "createdOn": { "type": Date, "default": Date.now}
-// })
 
-// var tweetsModel = mongoose.model("tweets" . tweetsSchema)
 
 module.exports = {
     userModel: userModel,

@@ -1,5 +1,4 @@
 
-// const url = "https://own-project.herokuapp.com";
 const url = "https://owais-twitter.herokuapp.com";
 // const url = "http://localhost:5000";
 
@@ -120,7 +119,6 @@ function getProfile() {
 
         method: 'get',
         // url: "http://localhost:5000/profile",
-        // url: "/profile",
         url: url + "/profile",
 
     }).then((response) => {
@@ -129,16 +127,16 @@ function getProfile() {
 
         document.getElementById('resUserName').innerHTML = response.data.profile.name
 
-        // if (!response.data.profile.profileUrl) {
+        if (!response.data.profile.profileUrl) {
 
-        //     document.getElementById('dbImage').src = 'images/randomPic.png'
-        //     document.getElementById('dbImageOne').src = 'images/randomPic.png'
-        // }
-        // else {
+            document.getElementById('dbImage').src = 'images/randomPic.png'
+            document.getElementById('dbImageOne').src = 'images/randomPic.png'
+        }
+        else {
 
-        //     document.getElementById('dbImage').src = response.data.profile.profileUrl
-        //     document.getElementById('dbImageOne').src = response.data.profile.profileUrl
-        // }
+            document.getElementById('dbImage').src = response.data.profile.profileUrl
+            document.getElementById('dbImageOne').src = response.data.profile.profileUrl
+        }
         getTweets();
     }, (error) => {
         // console.log(error.message);
@@ -151,23 +149,23 @@ function getProfile() {
 
 
 
-// function previewFile() {
-//     const preview = document.getElementById('dbImage');
+function previewFile() {
+    const preview = document.getElementById('dbImage');
 
-//     const file = document.querySelector('input[type=file]').files[0];
-//     const reader = new FileReader();
+    const file = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader();
 
-//     reader.addEventListener("load", function () {
-//         // convert image file to base64 string
-//         preview.src = reader.result;
-//     }, false);
+    reader.addEventListener("load", function () {
+        // convert image file to base64 string
+        preview.src = reader.result;
+    }, false);
 
-//     if (file) {
-//         reader.readAsDataURL(file);
-//         // document.getElementById("uploadBtn").style.display = "initial";
-//         document.getElementById("uploadTxt").innerHTML = "Press upload to upload profile picture";
-//     }
-// }
+    if (file) {
+        reader.readAsDataURL(file);
+        // document.getElementById("uploadBtn").style.display = "initial";
+       
+    }
+}
 
 
 const tweetme = () => {
@@ -304,31 +302,31 @@ function passForgot() {
 
 
 
-// function newPassword() {
+function newPassword() {
 
-//     console.log("Testing")
+    console.log("Testing")
 
 
-//     const Http = new XMLHttpRequest();
-//     Http.open("POST", url + "/auth/forgot-password-step-2")
-//     Http.setRequestHeader("Content-Type", "application/json");
-//     Http.send(JSON.stringify({
-//         email: document.getElementById("email").value.toLowerCase(),
-//         newPassword: document.getElementById("newPassword").value,
-//         otp: document.getElementById("otp").value,
-//     }))
-//     Http.onreadystatechange = (e) => {
-//         // console.log(Http.readyState);
+    const Http = new XMLHttpRequest();
+    Http.open("POST", url + "/auth/forgot-password-step-2")
+    Http.setRequestHeader("Content-Type", "application/json");
+    Http.send(JSON.stringify({
+        email: document.getElementById("email").value.toLowerCase(),
+        newPassword: document.getElementById("newPassword").value,
+        otp: document.getElementById("otp").value,
+    }))
+    Http.onreadystatechange = (e) => {
+        // console.log(Http.readyState);
 
-//         if (Http.readyState === 4) {
-//             alert(Http.responseText);
-//         }
+        if (Http.readyState === 4) {
+            alert(Http.responseText);
+        }
 
-//     }
+    }
 
-//     // return false;
+    return false;
 
-// }
+}
 
 function logout() {
     // let logout = () => {
