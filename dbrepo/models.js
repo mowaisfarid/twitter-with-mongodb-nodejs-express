@@ -1,12 +1,12 @@
 
 
-var { DBURI } = require("../core/index")
+// var { DBURI } = require("../core/index")
 
 
 var mongoose = require('mongoose')
 
-let dbURI = DBURI;
-// let dbURI = "mongodb+srv://owais:owais@cluster0.auftw.mongodb.net/tweeter-db?retryWrites=true&w=majority";
+// let dbURI = DBURI;
+let dbURI = "mongodb+srv://owais:owais@cluster0.auftw.mongodb.net/tweeter-db?retryWrites=true&w=majority";
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
