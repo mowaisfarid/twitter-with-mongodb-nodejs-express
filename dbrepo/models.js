@@ -1,6 +1,6 @@
 
 
-// var { DBURI } = require("../core/index")
+var { DBURI } = require("../core/index")
 
 
 var mongoose = require('mongoose')
